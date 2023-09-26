@@ -27,11 +27,10 @@ bot.on('message', async (ctx) => {
     }
 
     const userMessage = ctx.update.message.text;
-    if (findWord('артем' || 'артём', ctx.update.message.text)) {
+    if (findWord('артем', ctx.update.message.text)) {
         if (!userMessage || userMessage.trim() === '') {
             ctx.reply('Please enter a valid message.');
         } else {
-            // Process non-empty message
             const openaiResponse = await generateResponse(userMessage);
             ctx.reply(openaiResponse);
         }
@@ -39,7 +38,6 @@ bot.on('message', async (ctx) => {
 
 
 });
-
 
 
 bot.launch();
