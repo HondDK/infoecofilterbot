@@ -31,7 +31,6 @@ bot.on('message', async (ctx) => {
         if (!userMessage || userMessage.trim() === '') {
             ctx.reply('Please enter a valid message.');
         } else {
-            // Process non-empty message
             const openaiResponse = await generateResponse(userMessage);
             ctx.reply(openaiResponse);
         }
