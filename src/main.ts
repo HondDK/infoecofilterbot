@@ -4,10 +4,8 @@ import { generateResponse } from "./gpt/openAi";
 import { findWord } from "./helpers/findWord";
 import { GANDONE_STICKER, PHOTO_CLOWN } from "./const/const";
 import { message } from 'telegraf/filters';
-import { FmtString } from 'telegraf/format';
 
 dotenv.config();
-
 const bot = new Telegraf( process.env.TOKEN!);
 
 bot.on('message', async (ctx) => {
@@ -23,13 +21,21 @@ bot.on('message', async (ctx) => {
     const userMessage = ctx.update.message.text;
     if (findWord('артем', userMessage)) {
         if (!userMessage || userMessage.trim() === '') {
-            await   ctx.reply('Введите валидное сообщение.');
+            await ctx.reply('Введите валидное сообщение.');
         } else {
             const openaiResponse = generateResponse(userMessage);
             await ctx.reply(await openaiResponse as any);
         }
     }
     }
+    if (ctx.has(message('reply_to_message'))){
+        if (ctx.update.message.reply_to_message && ctx.has(message('text'))) {
+            const userMessage = ctx.update.message.text;
+            const openaiResponse = generateResponse(userMessage);
+            await ctx.reply(await openaiResponse as any);
+        }
+    }
+
 });
 bot.catch(err => {
     console.log(err)
