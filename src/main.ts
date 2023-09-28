@@ -1,4 +1,4 @@
-import { Telegraf } from 'telegraf';
+import { Telegraf  } from 'telegraf';
 import dotenv from 'dotenv';
 import { generateResponse } from "./gpt/openAi";
 import { findWord } from "./helpers/findWord";
@@ -8,7 +8,7 @@ import { message } from 'telegraf/filters';
 dotenv.config();
 const bot = new Telegraf( process.env.TOKEN!);
 
-bot.on('message', async (ctx) => {
+bot.on('message', async (ctx: any) => {
     if(ctx.has(message('text'))){
     if (findWord('гандон', ctx.update.message.text)) {
         await ctx.replyWithSticker(GANDONE_STICKER);
@@ -28,11 +28,11 @@ bot.on('message', async (ctx) => {
         }
     }
     }
-    if (ctx.has(message('reply_to_message'))){
-        if (ctx.update.message.reply_to_message && ctx.has(message('text'))) {
+    if (ctx.has(message('reply_to_message' ))){
+        if (ctx.message.reply_to_message && ctx.message.reply_to_message.from.id === ctx.botInfo.id) {
             const userMessage = ctx.update.message.text;
-            const openaiResponse = generateResponse(userMessage);
-            await ctx.reply(await openaiResponse as any);
+                const openaiResponse = generateResponse(userMessage);
+                await ctx.reply(await openaiResponse as any);
         }
     }
 
