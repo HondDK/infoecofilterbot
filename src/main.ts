@@ -24,7 +24,7 @@ bot.on('message', async (ctx: any) => {
             await ctx.reply('Введите валидное сообщение.');
         } else {
             const openaiResponse = generateResponse(userMessage);
-            await ctx.reply(await openaiResponse as any);
+            await ctx.reply(await openaiResponse as any ,  {reply_to_message_id: ctx.message?.message_id});
         }
     }
     }
@@ -32,22 +32,23 @@ bot.on('message', async (ctx: any) => {
         if (ctx.message.reply_to_message && ctx.message.reply_to_message.from.id === ctx.botInfo.id) {
             const userMessage = ctx.update.message.text;
                 const openaiResponse = generateResponse(userMessage);
-                await ctx.reply(await openaiResponse as any);
+                await ctx.reply(await openaiResponse as any ,  {reply_to_message_id: ctx.message?.message_id})
         }
     }
 
 });
 
-bot.on('channel_post', (ctx: any) => {
-    const channelPost = ctx.update.channel_post;
-    const channelId = channelPost.chat.id;
-    const openaiResponse = generateResponse(channelPost.text);
-    bot.telegram.sendMessage(channelId, openaiResponse as any, {
-        reply_to_message_id: channelPost.message_id,
-    })
-});
+// bot.on('channel_post', (ctx: any) => {
+//     const channelPost = ctx.update.channel_post;
+//     const channelId = channelPost.chat.id;
+//     const openaiResponse = generateResponse(channelPost.text);
+//     bot.telegram.sendMessage(channelId, openaiResponse as any, {
+//         reply_to_message_id: channelPost.message_id,
+//     })
+// });
 
 bot.catch(err => {
     console.log(err)
 });
 
+bot.launch()
