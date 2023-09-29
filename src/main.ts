@@ -37,8 +37,17 @@ bot.on('message', async (ctx: any) => {
     }
 
 });
+
+bot.on('channel_post', (ctx: any) => {
+    const channelPost = ctx.update.channel_post;
+    const channelId = channelPost.chat.id;
+    const openaiResponse = generateResponse(channelPost.text);
+    bot.telegram.sendMessage(channelId, openaiResponse as any, {
+        reply_to_message_id: channelPost.message_id,
+    })
+});
+
 bot.catch(err => {
     console.log(err)
 });
 
-bot.launch();
