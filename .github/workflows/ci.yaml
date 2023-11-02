@@ -22,8 +22,8 @@ jobs:
       run: |
         docker build -t neznajkin/navar_bobr_bot:$GITHUB_RUN_ID .
         docker push neznajkin/navar_bobr_bot:$GITHUB_RUN_ID
-
-   - name: SSH into the server
+    
+    - name: SSH into the server
       uses: appleboy/ssh-action@v0
       with:
         host: ${{ secrets.SERVER_HOST }}
