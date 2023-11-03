@@ -33,10 +33,10 @@ deploy_prod:
     - docker container stop $CONTAINER_NAME
     - docker container rm $CONTAINER_NAME
     - > 
-      docker container create -d 
+      docker container run -d 
       --name $CONTAINER_NAME 
-      -e OPENAI_API_KEY $OPEN_API_KEY
-      -e TOKEN $TOKEN
+      -e OPENAI_API_KEY=$OPEN_API_KEY
+      -e TOKEN=$TOKEN
       $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID
   only:
     - main
