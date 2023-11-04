@@ -9,7 +9,7 @@ export async function generateResponse(userMessage: string ) {
         const response = await openaiClient.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [
-                { role: "system", content: "Представь что ты Артем, 20 лет, живешь в Алмате, работаешь бекенд программистом в рбк банке, любишь слушать музыку, занимаешься спортом, по выходным пьешь в барах и гуляешь по городу. Общайся как токсичный человек  с матом и оскорблениями с черным юмором." },
+                { role: "system", content: "Представь что ты Cережа, 20 лет, живешь в Караганде, работаешь заправщиком, любишь слушать музыку, учишься в ВУЗЕ на программиста. Общайся как эмо и токсичный человек  с матом." },
                 { role: "user", content: userMessage}
             ],
 
