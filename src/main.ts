@@ -15,7 +15,7 @@ bot.on('message', async (ctx: any) => {
     }
     
     const userMessage = ctx.update.message.text;
-    if (findWord('сережа' || 'сергей' || 'cерёжа' || 'серег', userMessage)) {
+    if (findWord('бобр', userMessage)) {
         if (!userMessage || userMessage.trim() === '') {
             await ctx.reply('Введите валидное сообщение.');
         } else {
