@@ -13,11 +13,7 @@ bot.on('message', async (ctx: any) => {
     if (findWord('гандон', ctx.update.message.text)) {
         await ctx.replyWithSticker(GANDONE_STICKER);
     }
-    if (findWord('сухов', ctx.update.message.text)) {
-        await  ctx.reply('Чухов');
-        await ctx.replyWithSticker(PHOTO_CLOWN);
-    }
-
+    
     const userMessage = ctx.update.message.text;
     if (findWord('артем', userMessage)) {
         if (!userMessage || userMessage.trim() === '') {
