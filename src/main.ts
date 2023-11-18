@@ -34,13 +34,13 @@ const replyToMessage = async (ctx: any) => {
 const memberJoinChat = async (ctx: any) => {
     const newChatMembers = ctx.message.new_chat_members;
     for (const user of newChatMembers) {
-        await ctx.reply(`${user.first_name} ${user.last_name ? user.last_name : ''} бобер.`);
+        await ctx.reply(`${user.first_name}${' ' + user.last_name ? user.last_name : ''} бобер.`);
     }
 }
 
 const memberLeaveChat = async (ctx: any) => {
     const leftChatMember = ctx.message.left_chat_member;
-    await ctx.reply(`${leftChatMember.first_name} ${leftChatMember.last_name ? leftChatMember.last_name : ''} пошел нахуй.`);
+    await ctx.reply(`${leftChatMember.first_name}${' ' + leftChatMember.last_name ? leftChatMember.last_name : ''} пошел нахуй.`);
 }
 
 bot.on('left_chat_member', memberLeaveChat)
