@@ -2,7 +2,7 @@ import { Telegraf  } from 'telegraf';
 import dotenv from 'dotenv';
 import { generateResponse } from "./gpt/openAi";
 import { findWord } from "./helpers/findWord";
-import { GANDONE_STICKER, PHOTO_CLOWN } from "./const/const";
+import { GANDONE_STICKER } from "./const/const";
 import { message } from 'telegraf/filters';
 
 dotenv.config();
@@ -13,7 +13,8 @@ bot.on('message', async (ctx: any) => {
     if (findWord('гандон', ctx.update.message.text)) {
         await ctx.replyWithSticker(GANDONE_STICKER);
     }
-    
+
+
     const userMessage = ctx.update.message.text;
     if (findWord('бобр', userMessage)) {
         if (!userMessage || userMessage.trim() === '') {
@@ -31,6 +32,13 @@ bot.on('message', async (ctx: any) => {
                 await ctx.reply(await openaiResponse as any ,  {reply_to_message_id: ctx.message?.message_id})
         }
     }
+});
+
+bot.on('left_chat_member', async (ctx: any) => {
+    const userWhoLeft = ctx.message.left_chat_member;
+
+    ctx.reply(`Пользователь ${userWhoLeft.first_name} ${userWhoLeft.last_name} идет нахуй.`);
+
 
 });
 
