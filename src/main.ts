@@ -7,7 +7,7 @@ import { GANDONE_STICKER } from "./const/const";
 dotenv.config();
 const bot = new Telegraf( process.env.TOKEN!);
 
-bot.on(['message', 'left_chat_member'], async (ctx: any) => {
+const replyToMessage = async (ctx: any) => {
     if (ctx.message && ctx.message.text) {
         if (findWord('гандон', ctx.message.text)) {
             await ctx.replyWithSticker(GANDONE_STICKER);
@@ -30,12 +30,24 @@ bot.on(['message', 'left_chat_member'], async (ctx: any) => {
         await ctx.reply(await openaiResponse as any, { reply_to_message_id: ctx.message.message_id });
     }
 
+}
+const memberJoinChat = async (ctx: any) => {
+    if (ctx.message.new_chat_members) {
+        const userWhoJoin = ctx.message.new_chat_members;
+        await ctx.reply(`${userWhoJoin.first_name} ${userWhoJoin ? userWhoJoin.last_name : ''} бобер.`);
+    }
+
+}
+
+const memberLeaveChat = async (ctx: any) => {
     if (ctx.message.left_chat_member) {
         const userWhoLeft = ctx.message.left_chat_member;
-        console.log(userWhoLeft);
-        await ctx.reply(`Пользователь ${userWhoLeft.first_name} ${userWhoLeft.last_name} идет нахуй.`);
+        await ctx.reply(`${userWhoLeft.first_name} ${userWhoLeft ? userWhoLeft.last_name : ''} пошел нахуй.`);
     }
-});
+}
+
+
+bot.on(['message', 'left_chat_member', 'new_chat_members'],replyToMessage, memberLeaveChat, memberJoinChat)
 
 // bot.on('channel_post', (ctx: any) => {
 //     const channelPost = ctx.update.channel_post;
