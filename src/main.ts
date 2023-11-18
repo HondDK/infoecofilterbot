@@ -32,18 +32,13 @@ const replyToMessage = async (ctx: any) => {
 
 }
 const memberJoinChat = async (ctx: any) => {
-    if (ctx.message.new_chat_members) {
         const userWhoJoin = ctx.message.new_chat_members;
         await ctx.reply(`${userWhoJoin.first_name} ${userWhoJoin ? userWhoJoin.last_name : ''} бобер.`);
-    }
-
 }
 
 const memberLeaveChat = async (ctx: any) => {
-    if (ctx.message.left_chat_member) {
         const userWhoLeft = ctx.message.left_chat_member;
         await ctx.reply(`${userWhoLeft.first_name} ${userWhoLeft ? userWhoLeft.last_name : ''} пошел нахуй.`);
-    }
 }
 
 
