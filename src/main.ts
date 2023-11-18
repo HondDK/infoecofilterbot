@@ -29,22 +29,23 @@ const replyToMessage = async (ctx: any) => {
         const openaiResponse = generateResponse(userMessage);
         await ctx.reply(await openaiResponse as any, { reply_to_message_id: ctx.message.message_id });
     }
-
 }
+
 const memberJoinChat = async (ctx: any) => {
-        const userWhoJoin = ctx.message.new_chat_members;
-        await ctx.reply(`${userWhoJoin.first_name} ${userWhoJoin ? userWhoJoin.last_name : ''} бобер.`);
+    const newChatMembers = ctx.message.new_chat_members;
+    for (const user of newChatMembers) {
+        await ctx.reply(`${user.first_name} ${user.last_name ? user.last_name : ''} бобер.`);
+    }
 }
 
 const memberLeaveChat = async (ctx: any) => {
-        const userWhoLeft = ctx.message.left_chat_member;
-        await ctx.reply(`${userWhoLeft.first_name} ${userWhoLeft ? userWhoLeft.last_name : ''} пошел нахуй.`);
+    const leftChatMember = ctx.message.left_chat_member;
+    await ctx.reply(`${leftChatMember.first_name} ${leftChatMember.last_name ? leftChatMember.last_name : ''} пошел нахуй.`);
 }
 
-
-bot.on('message', replyToMessage)
 bot.on('left_chat_member', memberLeaveChat)
 bot.on('new_chat_members', memberJoinChat)
+bot.on('message', replyToMessage)
 
 // bot.on('channel_post', (ctx: any) => {
 //     const channelPost = ctx.update.channel_post;
