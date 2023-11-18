@@ -42,7 +42,7 @@ const memberLeaveChat = async (ctx: any) => {
 }
 
 
-bot.on(['message', 'left_chat_member', 'new_chat_members'], replyToMessage)
+bot.on('message', replyToMessage)
 bot.on('left_chat_member', memberLeaveChat)
 bot.on('new_chat_members', memberJoinChat)
 
