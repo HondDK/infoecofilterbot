@@ -32,15 +32,15 @@ bot.on('message', async (ctx: any) => {
                 await ctx.reply(await openaiResponse as any ,  {reply_to_message_id: ctx.message?.message_id})
         }
     }
+
+    if (ctx.filter('left_chat_member')) {
+        const userWhoLeft = ctx.message.left_chat_member;
+        console.log('123', userWhoLeft);
+        ctx.reply(`Пользователь ${userWhoLeft.first_name} ${userWhoLeft.last_name} идет нахуй.`);
+    }
 });
 
-bot.on('left_chat_member', async (ctx: any) => {
-    const userWhoLeft = ctx.message.left_chat_member;
 
-    ctx.reply(`Пользователь ${userWhoLeft.first_name} ${userWhoLeft.last_name} идет нахуй.`);
-
-
-});
 
 // bot.on('channel_post', (ctx: any) => {
 //     const channelPost = ctx.update.channel_post;
